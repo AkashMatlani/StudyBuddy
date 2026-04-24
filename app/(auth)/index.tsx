@@ -1,11 +1,11 @@
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import useSocialAuth from "../hooks/useSocialAuth";
 
 export default function AuthScreen() {
-
     const { handleSocailAuth, loadingStartagy } = useSocialAuth();
-
     return (
         <View className="flex-1 bg-background">
             {/* Gradient Background */}
@@ -20,6 +20,15 @@ export default function AuthScreen() {
                 >
                 </LinearGradient>
             </View>
+
+            <SafeAreaView className="flex-1">
+                <View className="w-16 h-16 rounded-[20px] bg-primary/15 items-center justify-center border border-primary/20">
+                                <Ionicons name="school" size={30} color="#A29BFE"/>
+                </View>
+                <Text className="text-3xl font-extrabold text-foreground tracking-tight mt-4 font-mono">StudyBuddy</Text>
+                <Text className="text-3xl font-extrabold text-foreground-muted text-[15px] mt-1.5 tracking-wide">Learn Together , grow together</Text>
+
+            </SafeAreaView>
         </View>
     )
 }
