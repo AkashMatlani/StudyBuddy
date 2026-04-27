@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useSocialAuth from "../hooks/useSocialAuth";
 
@@ -23,7 +23,7 @@ export default function AuthScreen() {
                 </LinearGradient>
             </View>
 
-            <SafeAreaView className="flex-1">
+            <SafeAreaView className="flex-1 justify-between">
                 <View>
                     <View className="items-center" pt-10 pb-20>
                         <View className="w-16 h-16 rounded-[20px] bg-primary/15 items-center justify-center border border-primary/20">
@@ -44,34 +44,80 @@ export default function AuthScreen() {
                         {/* Feature  */}
                         {[
                             {
-                                icon:"videocam" as const,
-                                label:"Video Calls",
-                                color:"#A29BFE",
-                                bg:"bg-primary/12 border-primary/20"
+                                icon: "videocam" as const,
+                                label: "Video Calls",
+                                color: "#A29BFE",
+                                bg: "bg-primary/12 border-primary/20"
                             },
                             {
-                                icon:"chatbubbles" as const,
-                                label:"Study Rooms",
-                                color:"#FF6B6B",
-                                bg:"bg-accent/12 border-accent/20",
+                                icon: "chatbubbles" as const,
+                                label: "Study Rooms",
+                                color: "#FF6B6B",
+                                bg: "bg-accent/12 border-accent/20",
                             },
-                              {
-                                icon:"people" as const,
-                                label:"Find Partners",
-                                color:"#00B894",
-                                bg:"bg-accent-secondary/12 border-accent-secondary/20",
+                            {
+                                icon: "people" as const,
+                                label: "Find Partners",
+                                color: "#00B894",
+                                bg: "bg-accent-secondary/12 border-accent-secondary/20",
                             },
-                        ].map((chip)=>(
+                        ].map((chip) => (
                             <View
-                            key={chip.label}
-                            className={`flex-row items-center gap-1.5  px-3.5 py-2  rounded-full border ${chip.bg}`}>
-                                <Ionicons name={chip.icon} size={14} color={chip.color}/>
+                                key={chip.label}
+                                className={`flex-row items-center gap-1.5  px-3.5 py-2  rounded-full border ${chip.bg}`}>
+                                <Ionicons name={chip.icon} size={14} color={chip.color} />
                                 <Text className="text-foreground-muted text-xs font-semibold tracking-wide">
                                     {chip.label}
                                 </Text>
                             </View>
                         ))}
-                       </View>
+                    </View>
+                </View>
+
+                <View className="px-8 pb-4">
+                    <View className="flex-row items-center gap-3 mb-6">
+                        <View className="flex-1 h-px bg-border" />
+                        <Text className="text-foreground-subtle text-xs font-medium tracking-widest uppercase">
+                            Continue With
+                        </Text>
+                        <View className="flex-1 h-px bg-border" />
+                    </View>
+
+                    <View className="flex-row justify-center items-center gap-4 mb-5">
+                        {/* google btn */}
+                        <Pressable className="size-20  rounded-2xl
+                         bg-white items-center
+                          justify-center active:scale-95
+                           shadow-lg shadow-white/10"
+                            style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+                              accessibilityRole="button"
+                            accessibilityLabel="Continue with Google">
+
+                            <Image source={require("../../assets/images/google.png")}
+                                style={{ width: 28, height: 28 }}
+                                contentFit="contain" />
+                        </Pressable>
+
+                        {/* Apple btn */}
+                        <Pressable className="size-20  rounded-2xl bg-surface border border-border-light
+                           items-center justify-center active:scale-95
+                           shadow-lg shadow-white/10"
+                            style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+                            accessibilityRole="button"
+                            accessibilityLabel="Continue with Apple">
+                            <Ionicons name="logo-apple" size={30} color="#FFFFFE" />
+                        </Pressable>
+
+                        {/* GitHub */}
+                        <Pressable className="size-20  rounded-2xl bg-surface border border-border-light
+                           items-center justify-center active:scale-95
+                           shadow-lg shadow-white/10"
+                            style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
+                            accessibilityRole="button"
+                            accessibilityLabel="Continue with Github">
+                            <Ionicons name="logo-github" size={30} color="#FFFFFE" />
+                        </Pressable>
+                    </View>
                 </View>
             </SafeAreaView>
         </View>
