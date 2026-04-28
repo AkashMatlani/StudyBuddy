@@ -1,13 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useSocialAuth from "../hooks/useSocialAuth";
 
 export default function AuthScreen() {
     const { handleSocailAuth, loadingStartagy } = useSocialAuth();
-
+    const isLoading =loadingStartagy !==null
     return (
         <View className="flex-1 bg-background">
             {/* Gradient Background */}
@@ -25,7 +25,7 @@ export default function AuthScreen() {
 
             <SafeAreaView className="flex-1 justify-between">
                 <View>
-                    <View className="items-center" pt-10 pb-20>
+                    <View className="items-center pt-10 pb-20">
                         <View className="w-16 h-16 rounded-[20px] bg-primary/15 items-center justify-center border border-primary/20">
                             <Ionicons name="school" size={30} color="#A29BFE" />
                         </View>
@@ -90,12 +90,21 @@ export default function AuthScreen() {
                           justify-center active:scale-95
                            shadow-lg shadow-white/10"
                             style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-                              accessibilityRole="button"
-                            accessibilityLabel="Continue with Google">
-
-                            <Image source={require("../../assets/images/google.png")}
-                                style={{ width: 28, height: 28 }}
-                                contentFit="contain" />
+                            accessibilityRole="button"
+                            accessibilityLabel="Continue with Google"
+                            disabled={isLoading}
+                            onPress={() => !isLoading && handleSocailAuth("oauth_google")}
+                        >
+                            {loadingStartagy === "oauth_google" ? (
+                                <ActivityIndicator size={"small"} color={"#6C5CE7"} />
+                            )
+                                :
+                                (
+                                    <Image source={require("../../assets/images/google.png")}
+                                        style={{ width: 28, height: 28 }}
+                                        contentFit="contain"
+                                    />
+                                )}
                         </Pressable>
 
                         {/* Apple btn */}
@@ -104,8 +113,17 @@ export default function AuthScreen() {
                            shadow-lg shadow-white/10"
                             style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
                             accessibilityRole="button"
-                            accessibilityLabel="Continue with Apple">
-                            <Ionicons name="logo-apple" size={30} color="#FFFFFE" />
+                            disabled={isLoading}
+                            onPress={() => !isLoading && handleSocailAuth("oauth_apple")}
+                            accessibilityLabel="Continue with Apple"
+                        >
+                            {loadingStartagy === "oauth_apple" ? (
+                                <ActivityIndicator size={"small"} color={"#6C5CE7"} />
+                            )
+                                :
+                                (
+                                    <Ionicons name="logo-apple" size={30} color="#FFFFFE" />
+                                )}
                         </Pressable>
 
                         {/* GitHub */}
@@ -114,16 +132,24 @@ export default function AuthScreen() {
                            shadow-lg shadow-white/10"
                             style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
                             accessibilityRole="button"
+                            disabled={isLoading}
+                            onPress={() => !isLoading && handleSocailAuth("oauth_github")}
                             accessibilityLabel="Continue with Github">
-                            <Ionicons name="logo-github" size={30} color="#FFFFFE" />
+                            {loadingStartagy === "oauth_github" ? (
+                                <ActivityIndicator size={"small"} color={"#6C5CE7"} />
+                            )
+                                :
+                                (
+                                    <Ionicons name="logo-github" size={30} color="#FFFFFE" />
+                                )}
                         </Pressable>
                     </View>
 
-                    <Text className="text-foreground-subtle text-[11px] text-center leading-4">
-                      By Continuing,you are agreeto our{" "}
-                      <Text className="text-primary-light">Terms of service </Text> and{" "} 
-                      <Text className="text-primary-light">Privacy Policy</Text>
-                    </Text>
+                    {/* <Text className="text-foreground-subtle text-[11px] text-center leading-4">
+                        By Continuing,you are agreeto our{" "}
+                        <Text className="text-primary-light">Terms of service </Text> and{" "}
+                        <Text className="text-primary-light">Privacy Policy</Text>
+                    </Text> */}
                 </View>
             </SafeAreaView>
         </View>

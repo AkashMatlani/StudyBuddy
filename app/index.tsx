@@ -7,7 +7,7 @@ export default function Index() {
 
   const { isSignedIn,isLoaded,signOut } = useAuth();
 
-  if(!isSignedIn) return null;
+  if(!isLoaded) return null;
 
   if (!isSignedIn) {
     return <Redirect href={"/(auth)"} />;
