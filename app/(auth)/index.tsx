@@ -118,6 +118,12 @@ export default function AuthScreen() {
                             <Ionicons name="logo-github" size={30} color="#FFFFFE" />
                         </Pressable>
                     </View>
+
+                    <Text className="text-foreground-subtle text-[11px] text-center leading-4">
+                      By Continuing,you are agreeto our{" "}
+                      <Text className="text-primary-light">Terms of service </Text> and{" "} 
+                      <Text className="text-primary-light">Privacy Policy</Text>
+                    </Text>
                 </View>
             </SafeAreaView>
         </View>
