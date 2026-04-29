@@ -9,10 +9,11 @@ if (!publishableKey) {
 }
 export default function RootLayout() {
   return (
-  <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-    <Stack screenOptions={{headerShown:false}}>
-      <Stack.Screen name='index' options={{title:"Home"}}/>
+    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+      <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(tabs)" />
     </Stack>
-  </ClerkProvider>
+  </ClerkProvider >
   );
 }

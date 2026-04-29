@@ -145,11 +145,11 @@ export default function AuthScreen() {
                         </Pressable>
                     </View>
 
-                    {/* <Text className="text-foreground-subtle text-[11px] text-center leading-4">
+                    <Text className="text-foreground-subtle text-[11px] text-center leading-4">
                         By Continuing,you are agreeto our{" "}
                         <Text className="text-primary-light">Terms of service </Text> and{" "}
                         <Text className="text-primary-light">Privacy Policy</Text>
-                    </Text> */}
+                    </Text>
                 </View>
             </SafeAreaView>
         </View>
