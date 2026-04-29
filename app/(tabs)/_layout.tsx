@@ -1,35 +1,51 @@
 import { useAuth } from '@clerk/expo';
 import { Ionicons } from "@expo/vector-icons";
-import { Redirect } from 'expo-router';
-import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
+import { Redirect, Tabs } from 'expo-router';
 import React from 'react';
 
 const TabsLayout = () => {
-      const { isSignedIn, isLoaded } = useAuth()
-      if (!isLoaded) {
+    const { isSignedIn, isLoaded } = useAuth()
+    if (!isLoaded) {
         return null
-      }
-    
-      if (!isSignedIn) {
+    }
+
+    if (!isSignedIn) {
         return <Redirect href={'/(auth)'} />
-      }
-  return (
-    <NativeTabs>
-         <NativeTabs.Trigger name="index">
-        <Label>Chat</Label>
-  <Ionicons name="chatbubble-outline" size={24} color="#fff" />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="explore">
-        <Label>Explore</Label>
-        <Icon sf="safari" drawable="explore" />
-      </NativeTabs.Trigger>
-       <NativeTabs.Trigger name="profile">
-        <Label>Profile</Label>
-        <Icon sf="person.fill" drawable="person" />
-      </NativeTabs.Trigger>
-    </NativeTabs>
-  
-  )
+    }
+    return (
+
+        <Tabs screenOptions={{ headerShown: false }}>
+            <Tabs.Screen
+                name="index"
+                options={{
+                    title: "chat",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="home-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+
+            <Tabs.Screen
+                name="explore"
+                options={{
+                    title: "Explore",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="compass-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    title: "Profile",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="settings-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+
+        </Tabs>
+    );
 }
 
 export default TabsLayout
