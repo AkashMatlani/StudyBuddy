@@ -14,7 +14,14 @@ const TabsLayout = () => {
     }
     return (
 
-        <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs
+            screenOptions=
+            {{
+                headerShown: false,
+                tabBarActiveTintColor:"#6c5CE7",
+
+            }}
+        >
             <Tabs.Screen
                 name="index"
                 options={{
