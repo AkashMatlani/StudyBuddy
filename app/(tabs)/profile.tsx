@@ -16,6 +16,7 @@ const ProfileScreen = () => {
                 <Text className='text-2xl font-bold text-foreground'>Profile</Text>
             </View>
 
+            {/* Profile */}
             <View className='items-center py-5'>
                 <View className='mb-3.5 relative'>
                     <Image source={user?.imageUrl}
@@ -35,6 +36,22 @@ const ProfileScreen = () => {
                 <Text className='mt-0.5 text-base text-foreground-muted'>
                     {user?.primaryEmailAddress?.emailAddress}
                 </Text>
+            </View>
+
+            {/* Stats */}
+            <View className='flex-row mt-2 mb-6 gap-3 px-5'>
+                <View className='items-center flex-1  rounded-2xl border border-border'>
+                    <Text className='text-2xl font-bold text-primary'>24</Text>
+                    <Text className='mt-1 text-xs text-foreground-muted'>Sessions</Text>
+                </View>
+                <View className='items-center flex-1  rounded-2xl border border-border'>
+                    <Text className='text-2xl font-bold text-primary'>12</Text>
+                    <Text className='mt-1 text-xs text-foreground-muted'>Partners</Text>
+                </View>
+                <View className='items-center flex-1  rounded-2xl border border-border'>
+                    <Text className='text-2xl font-bold text-primary'>48h</Text>
+                    <Text className='mt-1 text-xs text-foreground-muted'>Study Time</Text>
+                </View>
             </View>
         </SafeAreaView>
     )
