@@ -1,11 +1,18 @@
+import { COLORS } from '@/lib/theme';
 import { useAuth, useUser } from '@clerk/expo';
+import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const MENU_ITEMS = [
+    { icon: "notification_outline", label: "Notifications", color: COLORS.primary },
+    { icon: "notification_outline", label: "Saved Resources", color: COLORS.accent },
+    { icon: "notification_outline", label: "Study History", color: COLORS.accentSecondary },
+    { icon: "notification_outline", label: "Settings", color: COLORS.textMuted }
+];
 const ProfileScreen = () => {
-
     const { signOut } = useAuth();
     const { user } = useUser();
 
@@ -53,6 +60,25 @@ const ProfileScreen = () => {
                     <Text className='mt-1 text-xs text-foreground-muted'>Study Time</Text>
                 </View>
             </View>
+
+            {/* Menu Items */}
+            {MENU_ITEMS.map((item, i) => (
+                <Pressable
+                    key={i}
+                    className='mb-1.5 flex-row items-center gap-3.5  
+                rounded-xl border border-border bg-surface px-4 py-4'
+                >
+                    <View className='h-10 w-10 items-center justify-center rounded-xl'
+                        style={{ backgroundColor: `${item.color}15` }}>
+
+                        <Ionicons name={item.icon as any} size={22} color={item.color} />
+                    </View>
+                    <Text className='flex-1 text-base font-medium text-foreground'>{item.label}</Text>
+                    <Ionicons name='chevron-forward' size={18} color={COLORS.textSubtle} />
+                </Pressable>
+            )
+            )}
+
         </SafeAreaView>
     )
 }
