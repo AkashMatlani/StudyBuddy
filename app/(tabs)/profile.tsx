@@ -1,16 +1,17 @@
 import { COLORS } from '@/lib/theme';
 import { useAuth, useUser } from '@clerk/expo';
 import { Ionicons } from '@expo/vector-icons';
+import * as Sentry from "@sentry/react-native";
 import { Image } from 'expo-image';
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Alert, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MENU_ITEMS = [
-    { icon: "notification_outline", label: "Notifications", color: COLORS.primary },
-    { icon: "notification_outline", label: "Saved Resources", color: COLORS.accent },
-    { icon: "notification_outline", label: "Study History", color: COLORS.accentSecondary },
-    { icon: "notification_outline", label: "Settings", color: COLORS.textMuted }
+    { icon: "notifications-outline", label: "Notifications", color: COLORS.primary },
+    { icon: "bookmark-outline", label: "Saved Resources", color: COLORS.accent },
+    { icon: "time-outline", label: "Study History", color: COLORS.accentSecondary },
+    { icon: "settings-outline", label: "Settings", color: COLORS.textMuted }
 ];
 const ProfileScreen = () => {
     const { signOut } = useAuth();
@@ -62,22 +63,41 @@ const ProfileScreen = () => {
             </View>
 
             {/* Menu Items */}
-            {MENU_ITEMS.map((item, i) => (
-                <Pressable
-                    key={i}
-                    className='mb-1.5 flex-row items-center gap-3.5  
-                rounded-xl border border-border bg-surface px-4 py-4'
-                >
-                    <View className='h-10 w-10 items-center justify-center rounded-xl'
-                        style={{ backgroundColor: `${item.color}15` }}>
+            <View className='gap-1 px-5'>
+                {MENU_ITEMS.map((item, i) => (
+                    <Pressable
+                        key={i}
+                        className='mb-1.5 flex-row items-center gap-3.5  
+                    rounded-xl border border-border bg-surface px-4 py-4'
+                    >
+                        <View className='h-10 w-10 items-center justify-center rounded-xl'
+                            style={{ backgroundColor: `${item.color}15` }}>
+                            <Ionicons name={item.icon as any} size={22} color={item.color} />
+                        </View>
+                        <Text className='flex-1 text-base font-medium text-foreground'>{item.label}</Text>
+                        <Ionicons name='chevron-forward' size={18} color={COLORS.textSubtle} />
+                    </Pressable>
+                )
+                )}
+            </View>
 
-                        <Ionicons name={item.icon as any} size={22} color={item.color} />
-                    </View>
-                    <Text className='flex-1 text-base font-medium text-foreground'>{item.label}</Text>
-                    <Ionicons name='chevron-forward' size={18} color={COLORS.textSubtle} />
-                </Pressable>
-            )
-            )}
+            {/* Sign Out */}
+            <Pressable className='mt-6 mx-5  flex-row items-center justify-center gap-2
+            rounded-xl border border-[#FF6B6B33] bg-surface px-4 py-4'
+                onPress={async () => {
+                    try {
+                        await signOut();
+                        Sentry.logger.info("User signed out successfully", { userId: user?.id })
+                    } catch (error) {
+                        Sentry.logger.error("Error signing out", { userId: user?.id });
+                        Sentry.captureException(error);
+                        Alert.alert("Error", "An error occured while siging out. Please try again.")
+                    }
+                }
+                }>
+                <Ionicons name='log-out-outline' size={20} color={COLORS.danger} />
+                <Text className='text-base font-semibold text-danger'>Sign Out</Text>
+            </Pressable>
 
         </SafeAreaView>
     )
