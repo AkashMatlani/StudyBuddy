@@ -1,7 +1,8 @@
 import { ClerkProvider } from '@clerk/expo';
 import { tokenCache } from '@clerk/expo/token-cache';
-import { Stack } from "expo-router";
 import * as Sentry from '@sentry/react-native';
+import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 Sentry.init({
   dsn: 'https://eff751f67d6f380c8ebc04ab9175171a@o4504168230354944.ingest.us.sentry.io/4511308553912320',
@@ -30,10 +31,12 @@ if (!publishableKey) {
 export default Sentry.wrap(function RootLayout() {
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(tabs)" />
-    </Stack>
-  </ClerkProvider >
+      <GestureHandlerRootView className='flex-1'>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </GestureHandlerRootView>
+    </ClerkProvider >
   );
 });
