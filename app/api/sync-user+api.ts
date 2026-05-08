@@ -29,9 +29,6 @@ export async function POST(request: Request) {
         Sentry.captureException(error, {
             extra: { userId, name, image },
         });
-
         return Response.json({ error: "Failed to sync user" }, { status: 500 });
-
-
     }
 }
