@@ -1,3 +1,4 @@
+import { studyBuddyTheme } from "@/lib/theme";
 import { useUser } from "@clerk/expo";
 import type { UserResource } from "@clerk/types";
 import React, { useEffect, useRef } from 'react';
@@ -54,12 +55,12 @@ const ChatClient = ({ children, user }: { children: React.ReactNode, user: UserR
     if (!chatCleint) return <FullScreenLoader message="Loading chat..." />
 
     return (
-        <OverlayProvider>
-            <Chat client={chatCleint}>
+        <OverlayProvider value={{style:studyBuddyTheme}}>
+            <Chat client={chatCleint} style={studyBuddyTheme}>
                 {children}
             </Chat>
         </OverlayProvider>
-    )
+    );
 };
 
 const ChatWrapper = ({ children }: { children: React.ReactNode }) => {
